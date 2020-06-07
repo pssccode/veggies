@@ -12,4 +12,18 @@ class Culture extends Model
         'name',
         'img'
     ];
+
+    public static function getListForSelector()
+    {
+        $cultures = Culture::all();
+        $data = [];
+        foreach ($cultures as $culture){
+            $data[] = [
+              'name' => $culture->name,
+              'number' => $culture->id
+            ];
+        }
+        return $data;
+    }
+
 }

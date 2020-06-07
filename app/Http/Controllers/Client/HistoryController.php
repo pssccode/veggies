@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Culture;
+use App\Models\SalesHistory;
 use Illuminate\Http\Request;
 
 class HistoryController extends Controller
@@ -23,9 +25,8 @@ class HistoryController extends Controller
                 ['number' => 8, 'name' => 'Август'],
                 ['number' => 9, 'name' => 'Сентябрь']
             ],
-            'years' => [
-
-            ]
+            'years' => SalesHistory::getDistinctYears(0, 1),
+            'cultures' => Culture::getListForSelector()
         ];
     }
 }

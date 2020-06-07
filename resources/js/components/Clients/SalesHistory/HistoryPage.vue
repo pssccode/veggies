@@ -3,13 +3,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
+                    <selector :params="dataForSelectors.years" v-model="selectedYear"></selector>
+                </div>
+                <div class="col-md-3">
                     <selector :params="dataForSelectors.months" v-model="selectedMonth"></selector>
                 </div>
                 <div class="col-md-3">
-<!--                    <selector></selector>-->
-                </div>
-                <div class="col-md-3">
-                    Огурец
+                    <selector :params="dataForSelectors.cultures" v-model="selectedCulture"></selector>
                 </div>
                 <div class="col-md-3">
                     <button class="btn btn-primary btn-sm">Добавить</button>
@@ -25,6 +25,14 @@
                 selectedMonth: {
                     number: 0,
                     name: 'Все'
+                },
+                selectedYear: {
+                    number: 0,
+                    name: 'Все'
+                },
+                selectedCulture: {
+                    number: 1,
+                    name: 'Огурец'
                 },
                 dataForSelectors: {
                     months: {},

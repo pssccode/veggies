@@ -12,7 +12,7 @@
         props: ['params', 'value'],
         data() {
             return {
-                showItems: true,
+                showItems: false,
                 selectedItem: this.value
             }
         },
@@ -47,10 +47,28 @@
         list-style: none;
         position: absolute;
         left: 0;
-        border: 1px solid red;
         width: 100%;
         margin-left: 0;
         padding-left: 0;
-        z-index: 2000;
+        border-radius: 5px;
+        -webkit-box-shadow: 2px 2px 11px 0px rgba(50, 50, 50, 0.27);
+        -moz-box-shadow:    2px 2px 11px 0px rgba(50, 50, 50, 0.27);
+        box-shadow:         2px 2px 11px 0px rgba(50, 50, 50, 0.27);
+        background-color: #fff;
+    }
+    .selector__items li{
+        padding: 10px;
+        border-bottom: 1px solid #E5E5E5;
+        transition: all 1s;
+    }
+    .selector__items li:last-child{
+        border-bottom: none;
+    }
+    .selector__wrap:hover,
+    .selector__items li:hover{
+        cursor: pointer;
+    }
+    .selector__items li:hover{
+        background-color: #E5E5E5;
     }
 </style>

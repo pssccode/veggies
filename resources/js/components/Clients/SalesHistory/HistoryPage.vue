@@ -6,7 +6,7 @@
                     <selector :params="dataForSelectors.months" v-model="selectedMonth"></selector>
                 </div>
                 <div class="col-md-3">
-                    <selector></selector>
+<!--                    <selector></selector>-->
                 </div>
                 <div class="col-md-3">
                     Огурец

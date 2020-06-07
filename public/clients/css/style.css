@@ -1,0 +1,15 @@
+.menu__link,
+.profile__link{
+    position: absolute;
+    top: 0;
+}
+.menu__link{
+    right: 90px;
+}
+.profile__link{
+    right: 15px;
+}
+.history-page__wrap{
+    position: relative;
+    padding-top: 20px;
+}

@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'MainController@index')->name('main.page');
+Route::namespace('Client')->group(function (){
+    Route::get('/sales_history', 'HistoryController@index');
+    Route::get('/get_history_selectors_payloads', 'HistoryController@getHistorySelectorsPayloads')->name('get.history.selectors.payloads');
 });

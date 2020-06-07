@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Culture;
 use App\Models\SalesHistory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class HistoryController extends Controller
 {
@@ -17,16 +19,36 @@ class HistoryController extends Controller
     public function getHistorySelectorsPayloads()
     {
         return [
-            'months' => [
-                ['number' => 4, 'name' => 'Апрель'],
-                ['number' => 5, 'name' => 'Май'],
-                ['number' => 6, 'name' => 'Июнь'],
-                ['number' => 7, 'name' => 'Июль'],
-                ['number' => 8, 'name' => 'Август'],
-                ['number' => 9, 'name' => 'Сентябрь']
-            ],
+            'months' => SalesHistory::getDistinctMonths(0, 0, 1),
             'years' => SalesHistory::getDistinctYears(0, 1),
             'cultures' => Culture::getListForSelector()
         ];
+    }
+
+    public function getHistoryYearMonths($year)
+    {
+        return SalesHistory::getDistinctMonths($year, 0, 1);
+    }
+
+    public function getSalesHistoryTable(Request $request)
+    {
+        $sales = SalesHistory::query();
+        $cultureId = $request->get('culture');
+        $year = $request->get('year');
+        $month = $request->get('month');
+        if($cultureId > 0){
+            $sales->where('culture_id', $cultureId);
+        }
+        if($year > 0){
+            $sales->whereRaw("DATE_FORMAT(date, '%Y') = ".$year);
+        }
+        if($month > 0){
+            $sales->whereRaw("DATE_FORMAT(date, '%m') = ".$month);
+        }
+        return DataTables::of($sales)
+            ->editColumn('date', function($item){
+                return Carbon::parse($item->date)->format('d.m.Y');
+            })
+            ->make(true);
     }
 }

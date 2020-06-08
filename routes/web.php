@@ -19,4 +19,5 @@ Route::namespace('Client')->group(function (){
     Route::get('/get_history_selectors_payloads', 'HistoryController@getHistorySelectorsPayloads')->name('get.history.selectors.payloads');
     Route::get('/get_history_year_months/{year}', 'HistoryController@getHistoryYearMonths')->name('get.history.year.months');
     Route::post('/get_sales_history_table', 'HistoryController@getSalesHistoryTable')->name('get.sales.history.table');
+    Route::post('/store_sale', 'HistoryController@storeSale')->name('store.sale');
 });

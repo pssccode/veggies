@@ -7,6 +7,7 @@ use App\Models\Culture;
 use App\Models\SalesHistory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class HistoryController extends Controller
@@ -50,5 +51,17 @@ class HistoryController extends Controller
                 return Carbon::parse($item->date)->format('d.m.Y');
             })
             ->make(true);
+    }
+
+    public function storeSale(Request $request)
+    {
+        $item = new SalesHistory();
+        $item->user_id = 1;
+        $item->culture_id = $request->get('culture');
+        $item->price = $request->get('price');
+        $item->weight = $request->get('weight');
+        $item->sum = $request->get('sum');
+        $item->date = $request->get('date');
+        $item->save();
     }
 }

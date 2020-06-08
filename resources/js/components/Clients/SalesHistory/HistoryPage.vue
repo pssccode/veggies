@@ -1,5 +1,6 @@
 <template>
     <div class="history-page__wrap">
+        <add-sale-modal v-show="showAddModal"></add-sale-modal>
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -16,7 +17,7 @@
                 </div>
                 <div class="col-md-3">
                     <br>
-                    <button class="btn btn-primary btn-sm">Добавить</button>
+                    <button class="btn btn-primary btn-sm" @click="showAddModal = true">Добавить</button>
                 </div>
             </div>
             <div class="row table__wrap">
@@ -80,6 +81,7 @@
                     processing: true,
                     serverSide: true,
                 },
+                showAddModal: false
             }
         },
         watch:{
@@ -106,10 +108,15 @@
                 axios
                 .get('/get_history_selectors_payloads')
                 .then(response => (this.dataForSelectors = response.data));
+            },
+            closeModal: function (){
+                this.showAddModal = false;
+                setTimeout(() => this.$refs.table.reload(), 300);
             }
         },
         mounted() {
             this.getPayload();
+            this.$root.$on('closeItem', opt => this.closeModal());
         }
     }
 </script>

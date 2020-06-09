@@ -20,12 +20,39 @@
                     <button class="btn btn-primary btn-sm" @click="showAddModal = true">Добавить</button>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="sales__info">
+                        <div class="row">
+                            <div class="col-md-4">
+                                Общий вес: {{ allWeight }}
+                            </div>
+                            <div class="col-md-4">
+                                Общий заработок: {{ allSum }}
+                            </div>
+                            <div class="col-md-4">
+                                Минимальная/Максимальная цена: {{ minPrice+'/'+maxPrice }}
+                            </div>
+                            <div class="col-md-6">
+                                Минимальный/Максимальный вес: {{ minWeight+'/'+maxWeight }}
+                            </div>
+                            <div class="col-md-6">
+                                Минимальный/Максимальный заработок: {{ minSum+'/'+maxSum }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row table__wrap">
                 <div class="col-md-12">
                     <vdtnet-table
                         ref="table"
                         :fields="fields"
-                        :opts="options">
+                        :opts="options"
+                        @table-created="tableLoaded"
+                        @reloaded="tableLoaded">
                     </vdtnet-table>
                 </div>
             </div>
@@ -81,7 +108,15 @@
                     processing: true,
                     serverSide: true,
                 },
-                showAddModal: false
+                showAddModal: false,
+                allWeight: 0,
+                allSum: 0,
+                minPrice: 0,
+                maPrice: 0,
+                minWeight: 0,
+                maxWeight: 0,
+                minSum: 0,
+                maxSum: 0
             }
         },
         watch:{
@@ -112,6 +147,40 @@
             closeModal: function (){
                 this.showAddModal = false;
                 setTimeout(() => this.$refs.table.reload(), 300);
+            },
+            tableLoaded: function (vdtnet) {
+                let self = this;
+                if(vdtnet.dataTable){
+                    vdtnet.dataTable.on( 'xhr.dt',  function (e, settings, json, xhr) {
+                        self.updateSummary(json);
+                    } );
+                }
+            },
+            updateSummary(data){
+                if(data && data.sum){
+                    this.allSum = data.sum+'грн.';
+                }
+                if(data && data.weight){
+                    this.allWeight = data.weight+'кг';
+                }
+                if(data && data.min_price){
+                    this.minPrice = data.min_price+'грн.';
+                }
+                if(data && data.max_price){
+                    this.maxPrice = data.max_price+'грн.';
+                }
+                if(data && data.min_weight){
+                    this.minWeight = data.min_weight+'кг';
+                }
+                if(data && data.max_weight){
+                    this.maxWeight = data.max_weight+'кг';
+                }
+                if(data && data.min_sum){
+                    this.minSum = data.min_sum+'грн.';
+                }
+                if(data && data.max_sum){
+                    this.maxSum = data.max_sum+'грн.';
+                }
             }
         },
         mounted() {
@@ -123,6 +192,11 @@
 
 <style scoped>
     .table__wrap{
+        margin-top: 20px;
+    }
+    .sales__info{
         margin-top: 80px;
+        background-color: #e2e2e2;
+        padding: 15px;
     }
 </style>

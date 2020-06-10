@@ -17,7 +17,9 @@
                 </div>
                 <div class="col-md-3">
                     <br>
-                    <button class="btn btn-primary btn-sm" @click="showAddModal = true">Добавить</button>
+                    <button class="btn btn-primary btn-sm" @click="showAddModal = true">
+                        <i class="fa fa-plus"></i>Добавить
+                    </button>
                 </div>
             </div>
 
@@ -112,7 +114,7 @@
                 allWeight: 0,
                 allSum: 0,
                 minPrice: 0,
-                maPrice: 0,
+                maxPrice: 0,
                 minWeight: 0,
                 maxWeight: 0,
                 minSum: 0,
@@ -198,5 +200,14 @@
         margin-top: 80px;
         background-color: #e2e2e2;
         padding: 15px;
+    }
+    .dataTables_length{
+        display: none !important;
+    }
+</style>
+
+<style>
+    .dataTables_length{
+        display: none !important;
     }
 </style>

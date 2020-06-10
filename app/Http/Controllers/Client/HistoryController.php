@@ -98,13 +98,24 @@ class HistoryController extends Controller
 
     public function storeSale(Request $request)
     {
-        $item = new SalesHistory();
-        $item->user_id = 2;
-        $item->culture_id = $request->get('culture');
-        $item->price = $request->get('price');
-        $item->weight = $request->get('weight');
-        $item->sum = $request->get('sum');
-        $item->date = $request->get('date');
-        $item->save();
+
+        $cultureId = $request->get('culture');
+        $date = $request->get('date');
+
+        $items = [];
+        $forms = $request->get('forms');
+
+        foreach ($forms as $form) {
+            $items[] = [
+                'user_id' => 2,
+                'culture_id' => $cultureId,
+                'price' => $form['price'],
+                'weight' => $form['weight'],
+                'sum' => $form['sum'],
+                'date' => $date,
+            ];
+        }
+
+        SalesHistory::insert($items);
     }
 }

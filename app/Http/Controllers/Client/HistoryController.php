@@ -8,6 +8,7 @@ use App\Models\SalesHistory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class HistoryController extends Controller
@@ -57,6 +58,7 @@ class HistoryController extends Controller
                 'max_weight' => $summary['max_weight'],
                 'min_sum' => $summary['min_sum'],
                 'max_sum' => $summary['max_sum'],
+                'picking_cnt' => $summary['picking_cnt'],
             ])
             ->editColumn('date', function($item){
                 return Carbon::parse($item->date)->format('d.m.Y');
@@ -66,7 +68,7 @@ class HistoryController extends Controller
 
     public function getSummary($query)
     {
-        $q = $query->selectRaw("sum(sum) as all_sum, sum(weight) as all_weight,
+        $q = $query->selectRaw("count(id) as picking_cnt, sum(sum) as all_sum, sum(weight) as all_weight,
         min(price) as min_price, max(price) as max_price,
         min(weight) as min_weight, max(weight) as max_weight,
         min(sum) as min_sum, max(sum) as max_sum")->first();
@@ -78,7 +80,8 @@ class HistoryController extends Controller
             'min_weight' => 0,
             'max_weight' => 0,
             'min_sum' => 0,
-            'max_sum' => 0
+            'max_sum' => 0,
+            'picking_cnt' => 0,
         ];
         if(!isset($q)){
             return $data;
@@ -91,7 +94,8 @@ class HistoryController extends Controller
             'min_weight' => $q->min_weight,
             'max_weight' => $q->max_weight,
             'min_sum' => $q->min_sum,
-            'max_sum' => $q->max_sum
+            'max_sum' => $q->max_sum,
+            'picking_cnt' => $q->picking_cnt,
         ];
         return $data;
     }

@@ -28,19 +28,22 @@
                     <div class="sales__info">
                         <div class="row">
                             <div class="col-md-4">
-                                Общий вес: {{ allWeight }}
+                                Общий вес: <strong>{{ allWeight }}</strong>
                             </div>
                             <div class="col-md-4">
-                                Общий заработок: {{ allSum }}
+                                Общий заработок: <strong>{{ allSum }}</strong>
                             </div>
                             <div class="col-md-4">
-                                Минимальная/Максимальная цена: {{ minPrice+'/'+maxPrice }}
+                                Всего сборок: <strong>{{ pickingCnt }}</strong>
                             </div>
-                            <div class="col-md-6">
-                                Минимальный/Максимальный вес: {{ minWeight+'/'+maxWeight }}
+                            <div class="col-md-4">
+                                Мин./макс. цена: <strong>{{ minPrice+'/'+maxPrice }}</strong>
                             </div>
-                            <div class="col-md-6">
-                                Минимальный/Максимальный заработок: {{ minSum+'/'+maxSum }}
+                            <div class="col-md-4">
+                                Мин./макс. вес: <strong>{{ minWeight+'/'+maxWeight }}</strong>
+                            </div>
+                            <div class="col-md-4">
+                                Мин./макс. заработок: <strong>{{ minSum+'/'+maxSum }}</strong>
                             </div>
                         </div>
                     </div>
@@ -118,7 +121,8 @@
                 minWeight: 0,
                 maxWeight: 0,
                 minSum: 0,
-                maxSum: 0
+                maxSum: 0,
+                pickingCnt: 0,
             }
         },
         watch:{
@@ -182,6 +186,9 @@
                 }
                 if(data && data.max_sum){
                     this.maxSum = data.max_sum+'грн.';
+                }
+                if(data && data.picking_cnt){
+                    this.pickingCnt = data.picking_cnt;
                 }
             }
         },

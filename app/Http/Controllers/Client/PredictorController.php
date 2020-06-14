@@ -10,9 +10,13 @@ class PredictorController extends Controller
 {
     public function index()
     {
-        $predictor = new PredictorHelper('2020-14-06', 1, 2);
-        $weight = 0;
-        $price = 0;
+        $predictor = new PredictorHelper('2020-06-12', 1, 2);
+        if(!$predictor){
+            return false; // Нет записей про продажи
+        }
+        $weight = $predictor->getWeightPrediction();
+        $price = $predictor->getPricePrediction();
+
         return view('clients.predictor', [
             'weight' => $weight,
             'price' => $price

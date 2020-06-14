@@ -7,6 +7,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import VueGraph from 'vue-graph';
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,6 +21,7 @@ const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 window.moment = require('moment');
+Vue.use(VueGraph);
 Vue.use(require('vue-moment'), {
     moment
 });

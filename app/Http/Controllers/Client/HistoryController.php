@@ -38,14 +38,23 @@ class HistoryController extends Controller
         $cultureId = $request->get('culture');
         $year = $request->get('year');
         $month = $request->get('month');
+        $dates = $request->get('date');
+
+        if(isset($dates['startDate']) && isset($dates['endDate'])){
+            $startDate = Carbon::parse($dates['startDate'])->startOfDay()->toDateTimeString();
+            $endDate = Carbon::parse($dates['endDate'])->endOfDay()->toDateTimeString();
+            $sales->whereBetween('date', [$startDate, $endDate]);
+        }else{
+            if($year > 0){
+                $sales->whereRaw("DATE_FORMAT(date, '%Y') = ".$year);
+            }
+            if($month > 0){
+                $sales->whereRaw("DATE_FORMAT(date, '%m') = ".$month);
+            }
+        }
+
         if($cultureId > 0){
             $sales->where('culture_id', $cultureId);
-        }
-        if($year > 0){
-            $sales->whereRaw("DATE_FORMAT(date, '%Y') = ".$year);
-        }
-        if($month > 0){
-            $sales->whereRaw("DATE_FORMAT(date, '%m') = ".$month);
         }
         $summary = $this->getSummary(clone $sales);
         return DataTables::of($sales)

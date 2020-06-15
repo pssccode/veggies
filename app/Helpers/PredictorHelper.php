@@ -124,16 +124,44 @@ class PredictorHelper
         $cnt = count($this->thisYearSales);
         $originPrice = $this->thisYearSales[$cnt - 1]->weight;
         $priceDiff = ($this->thisYearSales[$cnt - 1]->weight - $this->thisYearSales[0]->weight) * -1;
+        $pricePercent = round($priceDiff * 100 / $this->thisYearSales[$cnt - 1]->weight);
 
-//        if($priceDiff < 0){
-//            $price = round(array_sum($this->downWeightArr) / count($this->downWeightArr));
-//        }else{
-//            $price = round(array_sum($this->upWeightArr) / count($this->upWeightArr));
-//        }
-//        return $originPrice + ($price * $originPrice / 100);
+        $downCount = count($this->downWeightArr);
+        $upCount = count($this->upWeightArr);
+        $diffValuePercent = $pricePercent;
+        $diffValue = 9999;
+        $digit = 0;
 
-        $tmpW = (array_sum($this->downWeightArr) + array_sum($this->upWeightArr)) / (count($this->downWeightArr) + count($this->upWeightArr));
-        return $originPrice + ($tmpW * $originPrice / 100);
+        if($downCount > 0){
+            foreach ($this->downWeightArr as $item) {
+                $digit = $pricePercent + $item;
+                if($digit < $diffValue){
+                    $diffValuePercent = $item;
+                    $diffValue = $digit;
+                }
+            }
+        }
+        if($upCount > 0){
+            foreach ($this->upWeightArr as $item) {
+                $digit = $pricePercent + $item;
+                if($digit < $diffValue){
+                    $diffValuePercent = $item;
+                    $diffValue = $digit;
+                }
+            }
+        }
 
+        $correct = 0;
+
+        if($priceDiff < 0){
+            $correct = array_sum($this->upWeightArr) / $upCount;
+        }else{
+            $correct = array_sum($this->downWeightArr) / $downCount;
+        }
+
+        $correct = $correct * 0.1;
+        $tmpW = $this->thisYearSales[0]->weight - (round(($diffValuePercent < 0 ? $diffValuePercent * -1 : $diffValuePercent) * $this->thisYearSales[0]->weight / 100));
+
+        return $tmpW + (round($tmpW * $correct / 100));
     }
 }

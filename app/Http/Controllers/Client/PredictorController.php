@@ -10,7 +10,7 @@ class PredictorController extends Controller
 {
     public function index()
     {
-        $predictor = new PredictorHelper('2020-06-12', 1, 2);
+        $predictor = new PredictorHelper('2020-06-14', 1, 2);
         if(!$predictor){
             return false; // Нет записей про продажи
         }

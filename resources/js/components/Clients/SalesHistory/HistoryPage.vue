@@ -2,25 +2,11 @@
     <div class="history-page__wrap">
         <add-sale-modal v-show="showAddModal"></add-sale-modal>
         <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <span>Год:</span>
-                    <selector :params="dataForSelectors.years" v-model="selectedYear"></selector>
-                </div>
-                <div class="col-md-3">
-                    <span>Месяц:</span>
-                    <selector :params="dataForSelectors.months" v-model="selectedMonth"></selector>
-                </div>
-                <div class="col-md-3">
-                    <span>Культура:</span>
-                    <selector :params="dataForSelectors.cultures" v-model="selectedCulture"></selector>
-                </div>
-                <div class="col-md-3">
-                    <br>
-                    <button class="btn btn-primary btn-sm" @click="showAddModal = true">
-                        <i class="fa fa-plus"></i>Добавить
-                    </button>
-                </div>
+            <div>
+                <filters-block v-model="filtersData" @input="updateTable()"></filters-block>
+                <button class="add__button" @click="showAddModal = true">
+                    <i class="fa fa-plus"></i>
+                </button>
             </div>
 
             <div class="row">
@@ -67,34 +53,26 @@
 <script>
     import VdtnetTable from 'vue-datatables-net';
     import 'datatables.net-bs4';
+    import FiltersBlock from "../FiltersBlock";
     export default {
         components: {
+            FiltersBlock,
             VdtnetTable
         },
         data(){
             const self = this;
             return {
-                selectedMonth: {
-                    number: 0,
-                    name: 'Все'
-                },
-                selectedYear: {
-                    number: 0,
-                    name: 'Все'
-                },
-                selectedCulture: {
-                    number: 1,
-                    name: 'Огурец'
-                },
-                dataForSelectors: {
-                    months: {},
-                    years: {}
-                },
                 fields: {
                     date: {label: 'Дата', sortable: true, searchable: false},
                     price: {label: 'Цена', sortable: true, searchable: true},
                     weight: {label: 'Вес', sortable: true, searchable: true},
                     sum: {label: 'Сумма', sortable: true, searchable: false},
+                },
+                filtersData: {
+                    year: {},
+                    month: {},
+                    culture: {},
+                    date: {},
                 },
                 options: {
                     ajax: {
@@ -104,9 +82,10 @@
                             'X-CSRF-TOKEN': window.axios.defaults.headers.common['X-CSRF-TOKEN']
                         },
                         'data': function (d) {
-                            d.year = self.selectedYear.number;
-                            d.month = self.selectedMonth.number;
-                            d.culture = self.selectedCulture.number;
+                            d.year = self.filtersData.year;
+                            d.month = self.filtersData.month;
+                            d.culture = self.filtersData.culture;
+                            d.date = self.filtersData.date;
                         }
                     },
                     responsive: true,
@@ -125,25 +104,11 @@
                 pickingCnt: 0,
             }
         },
-        watch:{
-            selectedYear: function (val) {
-                this.getYearMonths(val.number);
-                this.$refs.table.reload();
-            },
-            selectedMonth: function (val) {
-                this.$refs.table.reload();
-            }
-        },
         methods: {
-            getPayload: function () {
-                axios
-                .get('/get_history_selectors_payloads')
-                .then(response => (this.dataForSelectors = response.data));
-            },
-            getYearMonths: function(year){
-                axios
-                    .get('/get_history_year_months'+'/'+this.selectedYear.number)
-                    .then(response => (this.dataForSelectors.months = response.data));
+            updateTable: function(){
+                try{
+                    this.$refs.table.reload();
+                }catch(err){}
             },
             getTable: function () {
                 axios
@@ -157,9 +122,9 @@
             tableLoaded: function (vdtnet) {
                 let self = this;
                 if(vdtnet.dataTable){
-                    vdtnet.dataTable.on( 'xhr.dt',  function (e, settings, json, xhr) {
+                    vdtnet.dataTable.on('xhr.dt',  function (e, settings, json, xhr) {
                         self.updateSummary(json);
-                    } );
+                    });
                 }
             },
             updateSummary(data){
@@ -193,7 +158,6 @@
             }
         },
         mounted() {
-            this.getPayload();
             this.$root.$on('closeItem', opt => this.closeModal());
         }
     }
@@ -210,6 +174,23 @@
     }
     .dataTables_length{
         display: none !important;
+    }
+    .add__button{
+        position: fixed;
+        top: 30px;
+        left: 30px;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        border: none;
+        background-color: #1ABC9C;
+    }
+    .date__title{
+        display: block;
+    }
+    .vue-daterange-picker{
+        width: 100%;
+        max-width: unset;
     }
 </style>
 

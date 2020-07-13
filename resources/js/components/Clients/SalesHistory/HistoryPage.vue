@@ -23,13 +23,31 @@
                                 Всего сборок: <strong>{{ pickingCnt }}</strong>
                             </div>
                             <div class="col-md-4">
-                                Мин./макс. цена: <strong>{{ minPrice+'/'+maxPrice }}</strong>
+                                Мин. цена: <strong>{{ minPrice }}</strong>
                             </div>
                             <div class="col-md-4">
-                                Мин./макс. вес: <strong>{{ minWeight+'/'+maxWeight }}</strong>
+                                Средняя цена: <strong>{{ avPrice }}</strong>
                             </div>
                             <div class="col-md-4">
-                                Мин./макс. заработок: <strong>{{ minSum+'/'+maxSum }}</strong>
+                                Макс. цена: <strong>{{ maxPrice }}</strong>
+                            </div>
+                            <div class="col-md-4">
+                                Мин. вес: <strong>{{ minWeight }}</strong>
+                            </div>
+                            <div class="col-md-4">
+                                Средний вес: <strong>{{ avWeight }}</strong>
+                            </div>
+                            <div class="col-md-4">
+                                Макс. вес: <strong>{{ maxWeight }}</strong>
+                            </div>
+                            <div class="col-md-4">
+                                Мин. заработок: <strong>{{ minSum }}</strong>
+                            </div>
+                            <div class="col-md-4">
+                                Средний заработок: <strong>{{ avSum }}</strong>
+                            </div>
+                            <div class="col-md-4">
+                                Макс. заработок: <strong>{{ maxSum }}</strong>
                             </div>
                         </div>
                     </div>
@@ -99,9 +117,13 @@
                 maxPrice: 0,
                 minWeight: 0,
                 maxWeight: 0,
+                avWeight: 0,
                 minSum: 0,
                 maxSum: 0,
+                avSum: 0,
                 pickingCnt: 0,
+                allPrice: 0,
+                avPrice: 0,
             }
         },
         methods: {
@@ -146,14 +168,23 @@
                 if(data && data.max_weight){
                     this.maxWeight = data.max_weight+'кг';
                 }
+                if(data && data.max_weight){
+                    this.avWeight = data.picking_cnt > 0 ? (data.weight / data.picking_cnt).toFixed(2)+"кг" : 0;
+                }
                 if(data && data.min_sum){
                     this.minSum = data.min_sum+'грн.';
                 }
                 if(data && data.max_sum){
                     this.maxSum = data.max_sum+'грн.';
                 }
+                if(data && data.max_sum){
+                    this.avSum = data.picking_cnt > 0 ? (data.sum / data.picking_cnt).toFixed(2)+"грн." : 0;
+                }
                 if(data && data.picking_cnt){
                     this.pickingCnt = data.picking_cnt;
+                }
+                if(data && data.all_price){
+                    this.avPrice = data.picking_cnt > 0 ? (data.all_price / data.picking_cnt).toFixed(2)+"грн." : 0;
                 }
             }
         },
@@ -197,5 +228,8 @@
 <style>
     .dataTables_length{
         display: none !important;
+    }
+    .add__button{
+        z-index: 10000000000;
     }
 </style>

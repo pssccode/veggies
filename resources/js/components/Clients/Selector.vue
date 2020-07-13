@@ -1,10 +1,14 @@
 <template>
-    <div class="selector__wrap">
-        <p @click="showItems = !showItems">{{ selectedItem.name }}</p>
-        <ul class="selector__items" v-show="showItems">
-            <li v-show="selectedItem.number > 0" @click="setItem(0, 'Все')">Все</li>
-            <li v-for="param in params" @click="setItem(param.number, param.name)">{{ param.name }}</li>
-        </ul>
+    <div>
+        <div class="selector-page__wrap" v-show="showItems"  @click="showItems = !showItems">
+        </div>
+        <div class="selector__wrap">
+            <p @click="showItems = !showItems">{{ selectedItem.name }}</p>
+            <ul class="selector__items" v-show="showItems">
+                <li v-show="selectedItem.number > 0" @click="setItem(0, 'Все')">Все</li>
+                <li v-for="param in params" @click="setItem(param.number, param.name)">{{ param.name }}</li>
+            </ul>
+        </div>
     </div>
 </template>
 <script>
@@ -36,7 +40,7 @@
         width: 100%;
         padding: 5px 10px;
         position: relative;
-        z-index: 1;
+        z-index: 99999;
     }
 
     p {
@@ -70,5 +74,13 @@
     }
     .selector__items li:hover{
         background-color: #E5E5E5;
+    }
+    .selector-page__wrap{
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 100vw;
+        z-index: 9999;
     }
 </style>

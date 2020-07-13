@@ -1,5 +1,5 @@
 <template>
-    <div class="add__wrap">
+    <div class="add__wrap" @click="closeModal()">
         <div class="add__modal">
             <span class="close__button" @click="closeModal()">x</span>
             <div class="add__modal_header"></div>
@@ -155,7 +155,7 @@
         width: 100vw;
         height: 100vh;
         background-color: rgba(0, 0, 0, 0.6);
-        z-index: 1000;
+        z-index: 1000000;
     }
     .add__modal{
         background-color: #fff;

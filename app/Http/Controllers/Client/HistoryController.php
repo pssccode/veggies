@@ -68,6 +68,7 @@ class HistoryController extends Controller
                 'min_sum' => $summary['min_sum'],
                 'max_sum' => $summary['max_sum'],
                 'picking_cnt' => $summary['picking_cnt'],
+                'all_price' => $summary['all_price'],
             ])
             ->editColumn('date', function($item){
                 return Carbon::parse($item->date)->format('d.m.Y');
@@ -80,7 +81,7 @@ class HistoryController extends Controller
         $q = $query->selectRaw("count(id) as picking_cnt, sum(sum) as all_sum, sum(weight) as all_weight,
         min(price) as min_price, max(price) as max_price,
         min(weight) as min_weight, max(weight) as max_weight,
-        min(sum) as min_sum, max(sum) as max_sum")->first();
+        min(sum) as min_sum, max(sum) as max_sum, sum(price) as all_price")->first();
         $data = [
             'weight' => 0,
             'sum' => 0,
@@ -91,6 +92,7 @@ class HistoryController extends Controller
             'min_sum' => 0,
             'max_sum' => 0,
             'picking_cnt' => 0,
+            'all_price' => 0,
         ];
         if(!isset($q)){
             return $data;
@@ -105,6 +107,7 @@ class HistoryController extends Controller
             'min_sum' => $q->min_sum,
             'max_sum' => $q->max_sum,
             'picking_cnt' => $q->picking_cnt,
+            'all_price' => $q->all_price,
         ];
         return $data;
     }

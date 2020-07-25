@@ -1,5 +1,5 @@
 <template>
-    <div class="add__wrap" @click="closeModal()">
+    <div class="add__wrap">
         <div class="add__modal">
             <span class="close__button" @click="closeModal()">x</span>
             <div class="add__modal_header"></div>
@@ -66,7 +66,6 @@
     import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
     export default {
         components: { DateRangePicker },
-        // props: ['date'],
         data(){
             return{
                 cultures: [
@@ -155,12 +154,13 @@
         width: 100vw;
         height: 100vh;
         background-color: rgba(0, 0, 0, 0.6);
-        z-index: 1000000;
+        z-index: 100000;
     }
     .add__modal{
         background-color: #fff;
         border-radius: 4px;
         position: relative;
+        z-index: 9999999;
         /*overflow: hidden;*/
     }
     .add__modal_body{

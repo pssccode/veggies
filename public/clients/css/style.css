@@ -6,6 +6,12 @@
 .menu__link{
     right: 90px;
 }
+.menu__link:hover{
+    cursor: pointer;
+}
+.menu__link:hover > .menu__ul{
+    display: block;
+}
 .profile__link{
     right: 15px;
 }
@@ -15,4 +21,36 @@
 }
 header{
     height: 20px;
+}
+.menu__ul{
+    padding:0;
+    list-style: none;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 6px;
+    width: 160px;
+    position: absolute;
+    left: -120px;
+    top: 0;
+    z-index: 9999999999999999;
+    margin-bottom: 0;
+    display: none;
+}
+.menu__ul li{
+    width: 100%;
+    transition: all 0.5s;
+    display: block;
+}
+.menu__ul a{
+    width: 100%;
+    height: 100%;
+    padding: 7px 20px;
+    display: block;
+}
+.menu__ul li:hover{
+    cursor: pointer;
+    background-color: #ccc;
+}
+.menu__ul li:hover > a{
+    text-decoration: none;
 }

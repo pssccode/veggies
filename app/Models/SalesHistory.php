@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -80,5 +81,55 @@ class SalesHistory extends Model
             12 => 'Декабрь',
         ];
         return $months[$number];
+    }
+
+    public static function getInfoForCharts($cultureId, $year, $month, $dates)
+    {
+        $sales = SalesHistory::query();
+
+        if(isset($dates['startDate']) && isset($dates['endDate'])){
+            $startDate = Carbon::parse($dates['startDate'])->startOfDay()->toDateTimeString();
+            $endDate = Carbon::parse($dates['endDate'])->endOfDay()->toDateTimeString();
+            $sales->whereBetween('date', [$startDate, $endDate]);
+        }else{
+            if($year > 0){
+                $sales->whereRaw("DATE_FORMAT(date, '%Y') = ".$year);
+            }
+            if($month > 0){
+                $sales->whereRaw("DATE_FORMAT(date, '%m') = ".$month);
+            }
+        }
+
+        if($cultureId > 0){
+            $sales->where('culture_id', $cultureId);
+        }
+
+        $sales = $sales->orderBy('date', 'asc')->get()->toArray();
+        $results = [
+            'dates' => [],
+            'prices' => [],
+            'weights' => [],
+            'sum' => []
+        ];
+
+        foreach ($sales as $sale){
+            if(isset($results['dates'][$sale['date']])){
+                $results['prices'][$sale['date']] = $sale['price']; // TO-DO подумать над этим
+                $results['weights'][$sale['date']] += $sale['weight'];
+                $results['sum'][$sale['date']] += $sale['sum'];
+            }else{
+                $results['dates'][$sale['date']] = Carbon::parse($sale['date'])->format('d.m');
+                $results['prices'][$sale['date']] = $sale['price'];
+                $results['weights'][$sale['date']] = $sale['weight'];
+                $results['sum'][$sale['date']] = $sale['sum'];
+            }
+        }
+
+        $results['dates'] = array_values($results['dates']);
+        $results['prices'] = array_values($results['prices']);
+        $results['weights'] = array_values($results['weights']);
+        $results['sum'] = array_values($results['sum']);
+
+        return $results;
     }
 }

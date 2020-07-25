@@ -21,14 +21,14 @@
   <component name="ChangeListManager">
     <list default="true" id="8ad118a5-4ad8-496a-815c-1d6ef9e00649" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Client/HistoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Client/HistoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/SalesHistory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/SalesHistory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/clients/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/clients/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Clients/SalesHistory/AddSaleModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Clients/SalesHistory/AddSaleModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Clients/SalesHistory/HistoryPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Clients/SalesHistory/HistoryPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Clients/Selector.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Clients/Selector.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/clients/layouts/main_template.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/layouts/main_template.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/clients/layouts/partial/_header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/layouts/partial/_header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -164,6 +164,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\veggies\app\Http\Controllers\Client" />
       <recent name="C:\wamp64\www\veggies\resources\views\clients\layouts" />
     </key>
   </component>
@@ -197,6 +198,7 @@
       <workItem from="1592903068273" duration="642000" />
       <workItem from="1592938720145" duration="2252000" />
       <workItem from="1594634004199" duration="3696000" />
+      <workItem from="1595668462442" duration="9035000" />
     </task>
     <servers />
   </component>
@@ -216,10 +218,18 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="720" y="318" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1595671510733">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="720" y="318" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1595671510733" />
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1591528805979">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591528805979" />
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595672909124">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1595672909124" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1592903141413">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

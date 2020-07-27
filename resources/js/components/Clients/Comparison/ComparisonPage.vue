@@ -32,7 +32,7 @@
                             ref="picker"
                             :autoApply="true"
                             :singleDatePicker="true"
-                            v-model="selectedDate[itemsCnt]"
+                            v-model="selectedDate[0]"
                             :locale-data="locale"
                             :ranges="false">
                         </date-range-picker>
@@ -61,7 +61,23 @@
         <div class="container" v-else>
             <div class="row table__wrap">
                 <div class="col-md-12">
-
+                    <button class="btn btn-default" @click="showResults = false">Назад</button>
+                    <table class="table table-stripped table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>Дата</th>
+                                <th v-for="compItem in compTable">{{ compItem.title }}</th>
+                            </tr>
+                            <tr>
+                                <th>Вес</th>
+                                <td v-for="compItem in compTable" :class="compItem.weight_css_class">{{ compItem.weight }}</td>
+                            </tr>
+                            <tr>
+                                <th>Сумма</th>
+                                <td v-for="compItem in compTable" :class="compItem.sum_css_class">{{ compItem.sum }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -77,6 +93,7 @@
         },
         data() {
             return {
+                compTable: [],
                 showResults: false,
                 itemsCnt: 0,
                 selectedCulture: {
@@ -132,7 +149,7 @@
                         culture: this.selectedCulture.number
                     })
                     .then(response => {
-
+                        this.compTable = response.data
                     });
                 this.showResults = true;
             }
@@ -164,5 +181,13 @@
         border: none;
         color: #fff;
         font-size: 25px;
+    }
+
+    .gt{
+        color: #32A800;
+    }
+
+    .sm{
+        color: #C10000;
     }
 </style>

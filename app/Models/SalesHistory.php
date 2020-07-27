@@ -146,6 +146,35 @@ class SalesHistory extends Model
             ['date', '<=', $defaultDate]
         ])->whereRaw("DATE_FORMAT(date, '%Y') = ".$currentYear)->first();
 
-        return $defaultItem;
+        $results = [
+            [
+                'title' => $defaultDateObj->copy()->format('d.m.Y'),
+                'weight' => $defaultItem->default_all_weight,
+                'weight_css_class' => 'default',
+                'sum' => $defaultItem->default_all_sum,
+                'sum_css_class' => 'default'
+            ]
+        ];
+
+        foreach ($dates as $dt){
+            $dtObj = Carbon::parse($dt['startDate']);
+            $compDate = $dtObj->copy()->toDateString();
+            $compYear = $dtObj->copy()->format('Y');
+            $item = SalesHistory::selectRaw("sum(sum) as default_all_sum, sum(weight) as default_all_weight")->where([
+                ['culture_id', '=', $cultureId],
+                ['user_id', '=', 2],
+                ['date', '<=', $compDate]
+            ])->whereRaw("DATE_FORMAT(date, '%Y') = ".$compYear)->first();
+
+            $results[] = [
+                'title' => $dtObj->copy()->format('d.m.Y'),
+                'weight' => $item->default_all_weight,
+                'weight_css_class' => $item->default_all_weight > $defaultItem->default_all_weight ? 'gt' : 'sm',
+                'sum' => $item->default_all_sum,
+                'sum_css_class' => $item->default_all_sum > $defaultItem->default_all_sum ? 'gt' : 'sm',
+            ];
+        }
+
+        return $results;
     }
 }

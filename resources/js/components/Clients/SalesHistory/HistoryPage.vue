@@ -3,7 +3,7 @@
         <add-sale-modal v-show="showAddModal"></add-sale-modal>
         <div class="container">
             <div>
-                <filters-block v-model="filtersData" @input="updateTable()"></filters-block>
+                <filters-block v-model="filtersData" @input="updateTable()" :show-all="true"></filters-block>
                 <button class="add__button" @click="showAddModal = true">
                     <i class="fa fa-plus"></i>
                 </button>
@@ -82,6 +82,7 @@
             return {
                 fields: {
                     date: {label: 'Дата', sortable: true, searchable: false},
+                    culture_name: {label: 'Культура', sortable: false, searchable: false},
                     price: {label: 'Цена', sortable: true, searchable: true},
                     weight: {label: 'Вес', sortable: true, searchable: true},
                     sum: {label: 'Сумма', sortable: true, searchable: false},

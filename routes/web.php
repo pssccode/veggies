@@ -31,4 +31,9 @@ Route::namespace('Client')->group(function (){
         Route::get('/charts', 'ChartsController@index')->name('charts.index');
         Route::post('/get_charts', 'ChartsController@getCharts')->name('get.charts');
     });
+
+    Route::group([], function () { // Sales history
+        Route::get('/comparison', 'ComparisonController@index')->name('comparison.index');
+        Route::post('/get_comparison', 'ComparisonController@getComparison')->name('get.comparison');
+    });
 });

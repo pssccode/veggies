@@ -34,7 +34,7 @@ class HistoryController extends Controller
 
     public function getSalesHistoryTable(Request $request)
     {
-        $sales = SalesHistory::query();
+        $sales = SalesHistory::with('culture');
         $cultureId = $request->get('culture');
         $year = $request->get('year');
         $month = $request->get('month');
@@ -72,6 +72,9 @@ class HistoryController extends Controller
             ])
             ->editColumn('date', function($item){
                 return Carbon::parse($item->date)->format('d.m.Y');
+            })
+            ->editColumn('culture_name', function($item){
+                return isset($item->culture) ? $item->culture->name : '';
             })
             ->make(true);
     }

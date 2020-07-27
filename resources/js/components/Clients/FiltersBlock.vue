@@ -15,15 +15,15 @@
         </div>
         <div class="col-md-3">
             <strong>Год:</strong>
-            <selector :params="dataForSelectors.years" v-model="selectedYear"></selector>
+            <selector :params="dataForSelectors.years" v-model="selectedYear" :show-all="showAll"></selector>
         </div>
         <div class="col-md-3">
             <strong>Месяц:</strong>
-            <selector :params="dataForSelectors.months" v-model="selectedMonth"></selector>
+            <selector :params="dataForSelectors.months" v-model="selectedMonth" :show-all="true"></selector>
         </div>
         <div class="col-md-3">
             <strong>Культура:</strong>
-            <selector :params="dataForSelectors.cultures" v-model="selectedCulture"></selector>
+            <selector :params="dataForSelectors.cultures" v-model="selectedCulture" :show-all="showAll"></selector>
         </div>
         <button class="add__button" @click="showAddModal = true">
             <i class="fa fa-plus"></i>
@@ -35,7 +35,7 @@
     import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 
     export default {
-        props: ['value'],
+        props: ['value', 'showAll'],
         components: {
             DateRangePicker
         },
@@ -47,8 +47,8 @@
                     name: 'Все'
                 },
                 selectedYear: {
-                    number: 0,
-                    name: 'Все'
+                    number:  !this.showAll ? new Date().getFullYear() : 0,
+                    name:  !this.showAll ? new Date().getFullYear() : 'Все'
                 },
                 selectedCulture: {
                     number: 1,

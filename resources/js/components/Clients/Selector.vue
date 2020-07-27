@@ -5,7 +5,7 @@
         <div class="selector__wrap">
             <p @click="showItems = !showItems">{{ selectedItem.name }}</p>
             <ul class="selector__items" v-show="showItems">
-                <li v-show="selectedItem.number > 0" @click="setItem(0, 'Все')">Все</li>
+                <li v-show="showAll && selectedItem.number > 0" @click="setItem(0, 'Все')">Все</li>
                 <li v-for="param in params" @click="setItem(param.number, param.name)">{{ param.name }}</li>
             </ul>
         </div>
@@ -13,7 +13,7 @@
 </template>
 <script>
     export default {
-        props: ['params', 'value'],
+        props: ['params', 'value', 'showAll'],
         data() {
             return {
                 showItems: false,

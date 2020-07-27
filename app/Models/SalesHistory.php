@@ -85,7 +85,8 @@ class SalesHistory extends Model
 
     public static function getInfoForCharts($cultureId, $year, $month, $dates)
     {
-        $sales = SalesHistory::query();
+        $sales = SalesHistory::selectRaw("sum(price) / count(price) as price, sum(weight) / count(weight) as weight, sum(sum) / count(sum) as sum, date")
+            ->where('culture_id', $cultureId)->groupBy('date')->groupBy('culture_id');
 
         if(isset($dates['startDate']) && isset($dates['endDate'])){
             $startDate = Carbon::parse($dates['startDate'])->startOfDay()->toDateTimeString();
@@ -98,10 +99,6 @@ class SalesHistory extends Model
             if($month > 0){
                 $sales->whereRaw("DATE_FORMAT(date, '%m') = ".$month);
             }
-        }
-
-        if($cultureId > 0){
-            $sales->where('culture_id', $cultureId);
         }
 
         $sales = $sales->orderBy('date', 'asc')->get()->toArray();
@@ -131,5 +128,24 @@ class SalesHistory extends Model
         $results['sum'] = array_values($results['sum']);
 
         return $results;
+    }
+
+    public function culture()
+    {
+        return $this->belongsTo(Culture::class);
+    }
+
+    public static function getCompareTable($date, $dates, $cultureId)
+    {
+        $defaultDateObj = Carbon::parse($date['startDate']);
+        $defaultDate = $defaultDateObj->copy()->toDateString();
+        $currentYear = $defaultDateObj->copy()->format('Y');
+        $defaultItem = SalesHistory::selectRaw("sum(sum) as default_all_sum, sum(weight) as default_all_weight")->where([
+            ['culture_id', '=', $cultureId],
+            ['user_id', '=', 2],
+            ['date', '<=', $defaultDate]
+        ])->whereRaw("DATE_FORMAT(date, '%Y') = ".$currentYear)->first();
+
+        return $defaultItem;
     }
 }

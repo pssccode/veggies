@@ -2,13 +2,14 @@
     <div class="history-page__wrap">
         <div class="container">
             <div>
-                <filters-block v-model="filtersData" @input="getChart()"></filters-block>
+                <filters-block v-model="filtersData" @input="getChart()" :show-all="false"></filters-block>
             </div>
 
             <div class="row table__wrap">
                 <div class="col-md-12">
                     <h3>Цены:</h3>
                     <graph-line
+                        :text-rotate-x="45"
                         :height="400"
                         :shape="'normal'"
                         :axis-full-mode="true"
@@ -21,8 +22,9 @@
                     </graph-line>
                 </div>
                 <div class="col-md-12">
-                    <h3>Вес:</h3>
+                    <h3 class="mt20">Вес:</h3>
                     <graph-line
+                        :text-rotate-x="45"
                         :height="400"
                         :shape="'normal'"
                         :axis-full-mode="true"
@@ -35,8 +37,9 @@
                     </graph-line>
                 </div>
                 <div class="col-md-12">
-                    <h3>Заработок:</h3>
+                    <h3 class="mt20">Заработок:</h3>
                     <graph-line
+                        :text-rotate-x="45"
                         :height="400"
                         :shape="'normal'"
                         :axis-full-mode="true"

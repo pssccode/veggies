@@ -20,10 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ad118a5-4ad8-496a-815c-1d6ef9e00649" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/js/components/Clients/ShortJournal.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/SalesHistory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/SalesHistory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MainController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/clients/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/clients/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Clients/Comparison/ComparisonPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Clients/Comparison/ComparisonPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Clients/MainPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Clients/MainPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/clients/layouts/partial/_header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/layouts/partial/_header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,6 +200,7 @@
       <workItem from="1594634004199" duration="3696000" />
       <workItem from="1595668462442" duration="9035000" />
       <workItem from="1595842311486" duration="8320000" />
+      <workItem from="1598076327364" duration="3842000" />
     </task>
     <servers />
   </component>

@@ -57,3 +57,9 @@ header{
 .mt20{
     margin-top: 20px;
 }
+.menu__link.user{
+    right: 20px;
+}
+.menu__link.user .menu__ul {
+    left: -83px;
+}

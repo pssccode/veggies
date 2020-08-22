@@ -1,9 +1,11 @@
 <template>
     <div class="main-page__wrap">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <culture-selector></culture-selector>
+                <div class="col-md-4">
+                    <p><strong>Продукт:</strong></p>
+                    <selector :params="dataForSelectors.cultures" v-model="selectedCulture"
+                              :show-all="showAll"></selector>
                 </div>
             </div>
             <div class="row">
@@ -17,6 +19,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h3>Журнал</h3>
+                            <short-journal :journal="journal"></short-journal>
                         </div>
                         <div class="col-md-12">
                             <h3>Виджеты</h3>
@@ -32,8 +35,36 @@
 </template>
 <script>
     export default {
+        data() {
+            const self = this;
+            return {
+                selectedCulture: {
+                    number: 1,
+                    name: 'Огурец'
+                },
+                dataForSelectors: {
+                    months: {},
+                    years: {}
+                },
+                showAll: true,
+                journal: []
+            }
+        },
+        methods: {
+            getPayload: function () {
+                axios
+                    .get('/get_history_selectors_payloads')
+                    .then(response => (this.dataForSelectors = response.data));
+                this.getJournal();
+            },
+            getJournal: function () {
+                axios
+                    .post('/get_short_journal')
+                    .then(response => (this.journal = response.data));
+            }
+        },
         mounted() {
-            console.log('Component mounted.')
+            this.getPayload();
         }
     }
 </script>

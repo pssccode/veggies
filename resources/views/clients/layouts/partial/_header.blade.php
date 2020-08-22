@@ -9,5 +9,11 @@
             <li><a href="{{ route('predictor.index') }}">Предсказатель</a></li>
         </ul>
     </span>
-    <a href="" class="profile__link">Профиль</a>
+    <span class="menu__link user">
+        Профиль
+        <ul class="menu__ul">
+            <li><a href="{{ route('main.page') }}">Настройки</a></li>
+            <li><a href="{{ route('logout') }}">Выход</a></li>
+        </ul>
+    </span>
 </nav>
